@@ -1,0 +1,45 @@
+<!-- Bootstrap Table with Header - Light -->
+<div class="card">
+  <h2 class="card-header">List Client</h2>
+  <div class="table-responsive text-nowrap">
+    <table class="table">
+      <thead class="table-light">
+        <tr>
+          <th>ID</th>
+          <th>Nom et Prenom Client</th>
+          <th>email</th>
+          <th>Telephone</th>
+          <th>Etat </th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody class="table-border-bottom-0">
+        <tr *ngFor="let u of listClient">
+          <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong> {{u.id}}</strong></td>
+          <td>{{u.nom +' '+u.prenom}}</td>
+          <td>
+            {{u.email}}
+          </td>
+          <td>
+            {{u.tel}}
+          </td>
+          <td><span class="badge bg-label-primary me-1" *ngIf="u.etat">Active</span>
+            <span class="badge bg-label-primary me-1" *ngIf="!u.etat">Desactive</span>
+          </td>
+          <td>
+            <button mat-button color="primary" *ngIf="u.etat" (click)="activeDeactivUtilisateur(u.id)">
+              <mat-icon style="color: red;" fontIcon="lock"></mat-icon>
+            </button>
+            <button mat-button color="primary" *ngIf="!u.etat" (click)="activeDeactivUtilisateur(u.id)">
+              <mat-icon style="color: rgb(0, 128, 0);" fontIcon="lock_open"></mat-icon>
+            </button>
+
+
+          </td>
+
+
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

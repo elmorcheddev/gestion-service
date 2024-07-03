@@ -1,0 +1,39 @@
+    <!-- Bootstrap Table with Header - Light -->
+    <div class="card">
+        <h2 class="card-header">List Demande Accepter</h2>
+        <div class="table-responsive text-nowrap">
+          <table class="table">
+            <thead class="table-light">
+              <tr>
+                <th>ID</th>
+                <th>Nom et Prenom Client</th>
+                <th>Nom et Prenom Prest</th>
+                <th>Contact Client email-tel</th>
+                <th>Contact Prest email-tel</th>
+                <th>Montant</th>
+
+               </tr>
+            </thead>
+            <tbody class="table-border-bottom-0">
+              <tr *ngFor="let u of listPay">
+                <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong> {{u.id}}</strong></td>
+                <td>{{u.client.nom +' '+u.client.prenom}}</td>
+                <td>
+                    {{u.prest.nom + ' '+u.prest.prenom}}
+                 </td>
+                 <td>
+                    {{u.client.email+' - '+u.client.tel}}
+                 </td> <td>
+                    {{u.prest.email+' - '+u.prest.tel}}
+                 </td>
+                 <td>
+                    {{u.price}} TND
+                 </td>
+                 
+              
+               
+              </tr> 
+            </tbody>
+          </table>
+        </div>
+      </div>

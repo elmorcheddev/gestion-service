@@ -1,0 +1,92 @@
+   <!-- Start Navigation -->
+   <div class="header header-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <nav id="navigation" class="navigation navigation-landscape">
+                    <div class="nav-header">
+                        <a class="nav-brand" href="#">
+                            <img src="../../../assets/img/logo (3).png" class="logo" alt="" />
+                        </a>
+                        <div class="nav-toggle"></div>
+                    </div>
+                    <div class="nav-menus-wrapper">
+                        <ul class="nav-menu">
+                        
+                            <li class="active"><a routerLink="/home">Accueil<span class="submenu-indicator"></span></a>
+                          
+                            </li>
+                            
+                            <li><a routerLink="/listComp">Categoreis Service<span class="submenu-indicator"></span></a>
+                                <ul class="nav-dropdown nav-submenu" >
+                                    <li *ngFor="let cat of listCat"><a (click)="goListCompByCateg(cat.id)">{{cat.nomCat}} </a>
+                                      
+                                    </li>
+                                  
+                                </ul>
+                            </li>
+                            
+                            <li class="active"><a href="#">Contactez-nous<span class="submenu-indicator"></span></a>
+                          
+                            </li>
+                            <li class="active"><a href="#">À propos<span class="submenu-indicator"></span></a>
+                          
+                            </li>
+                             
+                          
+                            
+                        </ul>
+                        
+                        <ul class="nav-menu nav-menu-social align-to-right">
+                            
+                            <li *ngIf="!loginOrNot()">
+                                <a  routerLink="/login">
+                                    <i class="fa fa-upload mr-1"></i>Se Connecter
+                                </a>
+                            </li>
+                            <li *ngIf="!loginOrNot()">
+                                <a  routerLink="/register">
+                                    <i class="fa fa-upload mr-1"></i>Inscription
+                                </a>
+                            </li>
+                          
+                            <ul class="dropdown mt-3" *ngIf="loginOrNot()">
+                                <a class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"  >
+                                    <img  *ngIf="utilisateur.photo"
+                                      [src]="'data:image/jpeg;base64,' + utilisateur.photo" alt="{{utilisateur.photo}}" class="user-photo mr-2" style="width: 50px;height: 50px; border-radius: 50%; border: 2px solid #fff; box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);">
+                                    <span class="user-name">{{utilisateur.nom+' '+utilisateur.prenom |titlecase}}</span>
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="background-color: #fff; border: none; border-radius: 10px; box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);">
+                                    <a class="dropdown-item" *ngIf="nomRoles=='PRESTATAIRE'" (click)="goToMyProfil()" style="color: #333;">
+                                        <i class="fa fa-user" aria-hidden="true"></i>
+                                        Mon Profil
+                                    </a>
+                                    <a class="dropdown-item" *ngIf="nomRoles=='CLIENT'" (click)="goToProfilClient()" style="color: #333;">
+                                        <i class="fa fa-user" aria-hidden="true"></i>
+                                        Mon Profil
+                                    </a>
+                                    <a class="dropdown-item" *ngIf="nomRoles=='PRESTATAIRE'" (click)="goToMyMessagePrest()" style="color: #333;">
+                                         <i class="fa fa-wechat" aria-hidden="true"></i>
+                                        Message
+                                    </a>
+                                    <a class="dropdown-item" *ngIf="nomRoles=='CLIENT'" (click)="goToMyMessageClient()" style="color: #333;">
+                                        <i class="fa fa-wechat" aria-hidden="true"></i>
+                                       Message
+                                   </a>
+                                    <a class="dropdown-item" (click)="logout()" style="color: #333;">
+                                       <i class="fa-sign-out"></i> Se Déconnecter
+                                    </a>
+                                </div>
+                            </ul>
+                            
+                            
+                            
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Navigation -->
+<div class="clearfix"></div>

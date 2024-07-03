@@ -1,0 +1,115 @@
+<div class="page-title bg-cover" style="background:url(assets/img/bn-1.jpg)no-repeat;" data-overlay="5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12"></div>
+        </div>
+    </div>
+</div>	<section class="gray-bg pt-4">
+    <div class="container-fluid">
+        <div class="row m-0">
+            
+            <div class="col-xl-3 col-lg-4 col-md-12 col-sm-12">
+                <div class="dashboard-navbar overlio-top">
+                    
+                    <div class="d-user-avater">
+                        <img [src]="'data:image/jpeg;base64,' + utilisateur.photo" alt="{{utilisateur.photo}}" 
+                        class="img-fluid rounded" style=" border-radius: 50%; border: 2px solid #fff; box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);">
+                          <h4>{{utilisateur.nom +' '+utilisateur.prenom}} ({{nomRoles}})</h4>
+                        <span>{{utilisateur.adresse}}</span>
+                    </div>
+                    
+                    <div class="d-navigation">
+                        <ul id="metismenu">
+                            <li class="active"><a routerLink="/profils"><i class="ti-dashboard"></i>Mon Services </a></li>
+                            <li><a   routerLink="/listdemande"><i class="ti-user"></i>Demande Sur mon Service</a></li>
+                             <li><a routerLink="/chat"><i class="ti-email"></i>Messages</a></li>
+                           
+                            <li><a href="#"><i class="ti-power-off"></i>Log Out</a></li>
+                        </ul>
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <!-- Item Wrap Start -->
+            <div class="col-xl-9 col-lg-8 col-md-12 col-sm-12">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <!-- Breadcrumbs -->
+                        <div class="bredcrumb_wrap">
+                            <nav aria-label="breadcrumb">
+                              <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+                              </ol>
+                            </nav>	
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="table-responsive card p-2">
+                            
+                               <table class="table">
+ <thead>
+                                    <th>ID</th>
+                                    <th>Description</th>
+                                    <th>Client </th>
+                                    <th>Contact Email</th>
+                                    <th>Contact Telephonique</th>
+                                    <th>Etat</th>
+                                    <th>Action</th>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let demande of listDemandeByPrest">
+                                        <td>
+                                            {{demande.id}}
+                                        </td>
+                                        <td>
+                                            {{demande.description}}
+                                        </td>
+                                        <td>
+                                            {{demande.client.nom +' '+demande.client.prenom}}
+                                        </td>
+                                        <td>
+                                          <u><a href="mailto://{{demande.client.email}}"> {{demande.client.email}}</a></u> 
+                                        </td>
+                                        <td>
+                                            <a href="tel://{{demande.client.tel}}"> {{demande.client.tel}}</a>
+
+                                         </td>
+                                         <td>
+                                            <span class="badge badge-danger" *ngIf="!demande.etat && !demande.enAttent">Refuser</span>
+                                            <span class="badge badge-primary"*ngIf="demande.etat && !demande.enAttent">Accepter</span>
+                                            <span class="badge badge-warning" *ngIf="demande.enAttent">En attent</span>
+                                       </td>
+                                        <td *ngIf="!demande.enAttent">
+                                             <p>La décision est prise</p>
+                                        </td>
+                                      
+                                        <td *ngIf="!demande.enAttent">
+                                            <button *ngIf="demande.etat" class="btn btn-danger mb-3" style="margin-right: 5px;"><i class="fa fa-wechat"></i></button>
+                                            <button *ngIf="!demande.etat" class="btn btn-primary"><i class="fa fa-trash"></i></button>
+                                        </td>
+                                        <td *ngIf="demande.enAttent">
+ 
+                                            <button class="btn btn-danger" 
+                                            (click)="accepter(demande.id)" style="margin-right: 5px;"><i class="fa fa-check"></i></button>
+                                            <button class="btn btn-primary"
+                                            (click)="refuser(demande.id)"><i class="fa fa-lock"></i></button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                               </table>
+                               
+                            </div>
+ </div>
+                </div>
+            
+                
+            </div>
+            
+        </div>
+    </div>
+</section>

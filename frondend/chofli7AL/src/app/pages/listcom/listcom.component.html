@@ -1,0 +1,112 @@
+<section class="gray-bg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-12 col-sm-12">
+                <div class="simple-sidebar sm-sidebar">
+                    <div class="search-sidebar_header">
+                        <h4 class="ssh_heading">Recherche </h4>
+                         <a href="#search_open" data-toggle="collapse" aria-expanded="false" role="button" class="collapsed _filter-ico">
+                            <i class="fa fa-sliders"></i>
+                        </a>
+                    </div>
+                    <!-- Find New Property -->
+                    <div class="sidebar-widgets collapse miz_show" id="search_open" data-parent="#search_open">
+                        <div class="search-inner p-0">
+                            <div class="filter-search-box pb-0 mb-5">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <input type="text" [(ngModel)]="adresse" class="form-control" placeholder="Search by Location...">
+                                        <select class="form-control" [(ngModel)]="selectedCategory" (change)="fetchCompetencies()">
+                                            <option *ngFor="let cat of listCat" [value]="cat.id">{{cat.nomCat}}</option>
+                                        </select>
+                                       
+                                    </div>
+                                </div>
+                                <input type="hidden" id="origin" *ngIf="loginOrNot()" [(ngModel)]="utilisateur.adresse">
+                                <input type="hidden" id="origin" *ngIf="!loginOrNot()" value="tunis">
+                                <div class="form-group">
+                                    <div class="input-group-append">
+                                        <input type="text" class="form-control mb-5" placeholder="Location, Zip..">
+                                        <button class="btn btn-primary" type="button">
+                                            <i class="fa fa-search"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Sidebar End -->
+            <!-- Item Wrap Start -->
+            <div class="col-lg-9 col-md-12 col-sm-12" *ngIf="selectedCategory && adresse">
+                <div class="row">
+                    <div class="col-lg-3 col-md-6 col-sm-12" *ngFor="let comp of competencies">
+                        <div class="_freelacers_120 large shadow_0">
+                            <div class="jobs-like">
+                                <label class="toggler toggler-danger">
+                                    <div *ngIf="distance">
+                                        <p>{{ distance }} Km</p>
+                                    </div>
+                                </label>
+                            </div>
+                            <div class="_freelacers_120_thumb">
+                                <img src="assets/img/verify.svg" class="verified" width="15" alt="">
+                                <a>
+                                    <img [src]="'data:image/jpeg;base64,' + comp.prestatire.photo" alt="{{comp.prestatire.photo}}" class="img-fluid circle">
+                                </a>
+                            </div>
+                            <div class="_freelacers_120_caption">
+                                <div class="_freelan_laft"><i class="ti-location-pin mr-1"></i>{{comp.adresse}}</div>
+                                <h4><a href="candidate-detail.html">{{comp.prestatire.nom + ' ' + comp.prestatire.prenom}}</a></h4>
+                                <span class="_freel_spec">{{comp.categoriesServices.nomCat}}</span><br>
+                                <span class="_freel_spec">{{comp.nombeExperience}} Ans Experience </span>
+                            </div>
+                            <div class="_freelacers_120_body">
+                                <div class="_free0o9"></div>
+                                <div class="_freelacers_121_foot">
+                                    <a (click)="goToProfilDetails(comp.id)" class="btn btn-theme light">View Profile</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-9 col-md-12 col-sm-12" *ngIf="id && !selectedCategory && !adresse">
+                <div class="row">
+                    <div class="row">
+                        <div class="col-lg-3 col-md-6 col-sm-12" style="margin-left:5px ;padding: 5rem;" *ngFor="let comp of listcompbycat">
+                            <div class="_freelacers_120 large shadow_0">
+                                <div class="jobs-like">
+                                    <label class="toggler toggler-danger">
+                                        <div *ngIf="distance">
+                                            <p>{{ distance }} Km</p>
+                                        </div>
+                                    </label>
+                                </div>
+                                <div class="_freelacers_120_thumb">
+                                    <img src="assets/img/verify.svg" class="verified" width="15" alt="">
+                                    <a>
+                                        <img [src]="'data:image/jpeg;base64,' + comp.prestatire.photo" alt="{{comp.prestatire.photo}}" class="img-fluid circle">
+                                    </a>
+                                </div>
+                                <div class="_freelacers_120_caption">
+                                    <div class="_freelan_laft"><i class="ti-location-pin mr-1"></i>{{comp.adresse}}</div>
+                                    <h4><a href="candidate-detail.html">{{comp.prestatire.nom + ' ' + comp.prestatire.prenom}}</a></h4>
+                                    <span class="_freel_spec">{{comp.categoriesServices.nomCat}}</span><br>
+                                    <span class="_freel_spec">{{comp.nombeExperience}} Ans Experience </span>
+                                </div>
+                                <div class="_freelacers_120_body">
+                                    <div class="_free0o9"></div>
+                                    <div class="_freelacers_121_foot">
+                                        <a (click)="goToProfilDetails(comp.id)" class="btn btn-theme light">Voir le profil</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>                </div>
+            </div>
+            <!-- Item Wrap End -->
+        </div>
+    </div>
+</section>

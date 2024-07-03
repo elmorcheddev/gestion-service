@@ -1,0 +1,232 @@
+<div class="page-title bg-cover" style="background:url(assets/img/bn-1.jpg)no-repeat;" data-overlay="5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12"></div>
+        </div>
+    </div>
+</div>
+
+<section class="gray-bg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-12 col-sm-12">
+                <div class="_job_detail_box">
+                    <div class="_wrap_box_slice">
+                        <div class="_job_detail_single">
+                            <h4>À propos du Prestataire</h4>
+                            <p>{{profil.description}}</p>
+                        </div>
+
+                        <div class="carousel">
+                            <h3>Mon</h3>
+                            <div class="carousel-inner">
+                                <div *ngFor="let image of listImage; let i = index" [ngClass]="{'active': i === activeIndex}" class="carousel-item">
+                                    <img [src]="'data:image/jpeg;base64,' + image.pic" style="width: 300px; height: 300px; object-fit: cover;" class="d-block w-100" alt="Slide {{ i }}">
+                                </div>
+                            </div>
+                            <a class="carousel-control-prev" role="button" (click)="prev()">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Précédent</span>
+                            </a>
+                            <a class="carousel-control-next" role="button" (click)="next()">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Suivant</span>
+                            </a>
+                        </div>
+                        <div class="mt-5 p-2">
+                            <h3>AUTRES TRAVAUX</h3>
+                            <div class="_freelacers_120_body">
+                                <div class="_free0o9">
+                                    <ul>
+                                        <li *ngFor="let cp of listbycomp" (click)="goToProfilDetails(cp.id)">
+                                            <button class="btn btn-success">{{cp.categoriesServices.nomCat}}</button>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="blog-details single-post-item format-standard">
+                    <div class="comment-area">
+                        <div class="all-comments">
+                            <h3 class="comments-title">{{taille}} Commentaires</h3>
+                            <div class="comment-list">
+                                <ul>
+                                    <li class="single-comment" *ngFor="let review of listReview">
+                                        <article>
+                                            <div class="comment-details">
+                                                <div class="comment-meta">
+                                                    <div class="comment-left-meta">
+                                                        <div class="comment-date">{{review.dateCreation | date}}</div>
+                                                        <h4 class="author-name">{{review.client.nom +' '+review.client.prenom}}</h4>
+                                                    </div>
+                                                </div>
+                                                <div class="comment-text">
+                                                    <p>{{review.content}}</p>
+                                                </div>
+                                            </div>
+                                        </article>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="comment-box submit-form" *ngIf="loginOrNot() && nomRoles=='CLIENT'">
+                            <h3 class="reply-title">Poster un Commentaire</h3>
+                            <div class="comment-form">
+                                <form #form="ngForm" (ngSubmit)="saveNewReview(form)">
+                                    <div class="row">
+                                        <div class="star-rating">
+                                            <input type="radio" id="star5" name="rating" value="5" [(ngModel)]="review.start"/><label for="star5" title="5 stars">☆</label>
+                                            <input type="radio" id="star4" name="rating" value="4" [(ngModel)]="review.start"/><label for="star4" title="4 stars">☆</label>
+                                            <input type="radio" id="star3" name="rating" value="3" [(ngModel)]="review.start"/><label for="star3" title="3 stars">☆</label>
+                                            <input type="radio" id="star2" name="rating" value="2" [(ngModel)]="review.start"/><label for="star2" title="2 stars">☆</label>
+                                            <input type="radio" id="star1" name="rating" value="1" [(ngModel)]="review.start"/><label for="star1" title="1 star">☆</label>
+                                        </div>
+                                        <input type="hidden" [(ngModel)]="profil.id" name="films" value="{{profil.id}}">
+                                        <input type="hidden" [(ngModel)]="utilisateur.id" name="client" value="{{utilisateur.id}}">
+                                        <div class="col-lg-12 col-md-12 col-sm-12">
+                                            <div class="form-group">
+                                                <textarea [(ngModel)]="review.content" name="content" class="form-control with-light" cols="30" rows="6" placeholder="Tapez vos commentaires..." required minlength="10"></textarea>
+                                                <!-- Ajout de 'required' et 'minlength' pour la validation -->
+                                                <div *ngIf="form.controls['content'].invalid && (form.controls['content'].dirty || form.controls['content'].touched)" class="alert alert-danger">
+                                                    <div *ngIf="form.controls['content'].errors?.['required']">Le commentaire est obligatoire.</div>
+                                                    <div *ngIf="form.controls['content'].errors?.['minlength']">Le commentaire doit comporter au moins 10 caractères.</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12 col-md-12 col-sm-12">
+                                            <div class="form-group">
+                                                <button type="submit" class="btn dark-3 rounded full-width">Envoyer le Commentaire</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="comment-box submit-form shadow p-5" *ngIf="!loginOrNot() && nomRoles!=='CLIENT'">
+                            <div class="comment-form">
+                                <p style="color: red;">Pour envoyer un commentaire à ce prestataire, vous devez vous connecter</p>
+                                <a routerLink="/login" style="color: red;">Connexion</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-12 col-sm-12">
+                <div class="_jb_summary light_box">
+                    <div class="_jb_summary_largethumb" style="background-color: rgb(206, 206, 206);">
+                        <span>{{profil.categoriesServices.nomCat}} ({{numberStart| number: '1.1-1' }} ☆)</span>
+                        <img [src]="'data:image/jpeg;base64,' + profil.prestatire.photo" alt="{{profil.prestatire.photo}}" class="img-fluid circle">
+                    </div>
+                    <div class="_jb_summary_thumb"></div>
+                    <div class="_jb_summary_caption">
+                        <h4>{{profil.categoriesServices.nomCat}}</h4>
+                    </div>
+                    <div class="_jb_summary_body">
+                        <div class="_view_dis_908" *ngIf="loginOrNot() && nomRoles=='CLIENT'">
+                            <a href="tel://{{profil.prestatire.tel}}" class="btn flw_btn">Contact Téléphonique</a>
+                            <a href="#" class="btn msg_btn" (click)="gotoChat(profil.prestatire.id)">Contact par Messagerie</a>
+                            <a href="#" class="btn msg_btn" data-toggle="modal" data-target="#login">Envoyer une Demande</a>
+                            <a href="#" class="btn msg_btn" data-toggle="modal" data-target="#login1">Paye</a>
+                        </div>
+                        
+                        <div class="_view_dis_908">
+                            <ul class="exlio_list">
+                                <li>Nom et Prénom<span>{{profil.prestatire.nom +" "+profil.prestatire.prenom}}</span></li>
+                                <li>Adresse<span>{{profil.prestatire.adresse}}</span></li>
+                                <li *ngIf="loginOrNot()">Tel<span>{{profil.prestatire.tel}}</span></li>
+                                <li>Email<span>{{profil.prestatire.email}}</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="_jb_summary light_box p-4">
+                    <h4>Informations Utilisateur</h4>
+                    <ul>
+                        <li>Localisation :<span>{{profil.prestatire.adresse}}</span></li>
+                        <li>Expérience :<span>{{profil.nombeExperience}}</span></li>
+                    </ul>
+                </div>
+                
+                <div class="_jb_summary light_box p-4">
+                    <h4>Informations Sociales</h4>
+                    <ul class="shares_jobs">
+                        <li><a href="#" class="share fb"><i class="fa fa-facebook"></i></a></li>
+                        <li><a href="#" class="share tw"><i class="fa fa-twitter"></i></a></li>
+                        <li><a href="#" class="share gp"><i class="fa fa-google"></i></a></li>
+                        <li><a href="#" class="share ln"><i class="fa fa-linkedin"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Modal pour Envoyer une Demande -->
+<div class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="registermodal" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered login-pop-form" role="document">
+        <div class="modal-content" id="registermodal">
+            <div class="modal-header">
+                <h4>Envoyer une Demande</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="ti-close"></i></span></button>
+            </div>
+            <div class="modal-body">
+                <div class="login-form">
+                    <form #form="ngForm" (ngSubmit)="ajouterDemande(form)">
+                        <div class="modal-body">
+                            <div class="login-form">
+                                <div class="col-12">
+                                    <label for="description">Description</label>
+                                    <textarea id="description" cols="5" [(ngModel)]="demande.description" name="description" class="form-control" required minlength="10"></textarea>
+                                    <div *ngIf="form.controls['description'].invalid && (form.controls['description'].dirty || form.controls['description'].touched)" class="alert alert-danger">
+                                        <div *ngIf="form.controls['description'].errors?.['required']">La description est obligatoire.</div>
+                                        <div *ngIf="form.controls['description'].errors?.['minlength']">La description doit comporter au moins 10 caractères.</div>
+                                    </div>
+                                </div>
+                                <input type="hidden" [(ngModel)]="profil.prestatire.id" value="{{profil.prestatire.id}}" name="prest" class="form-control">
+                                <input type="hidden" [(ngModel)]="utilisateur.id" name="client" value="{{utilisateur.id}}" class="form-control">
+                                <div class="form-group">
+                                    <button type="submit" class="btn dark-2 btn-md full-width pop-login">Ajouter</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal pour Paiement -->
+<div class="modal fade" id="login1" tabindex="-1" role="dialog" aria-labelledby="registermodal" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered login-pop-form" role="document">
+        <div class="modal-content" id="registermodal">
+            <div class="modal-header">
+                <h4>Paiement</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="ti-close"></i></span></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="card p-4">
+                            <h4>Formulaire de paiement</h4>
+                            <form  #form="ngForm"  (ngSubmit)="ajouterPaiement(form)">
+                                
+                                 
+                                <div class="form-group">
+                                    <label > Montant </label>
+                                    <input type="number" class="form-control" [(ngModel)]="payment.price"   name="price" placeholder="Montat " required >
+                                 </div>
+                                
+                                 
+                                <button type="submit" class="btn btn-primary">Payer</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

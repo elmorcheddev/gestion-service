@@ -1,0 +1,201 @@
+<div class="page-title bg-cover" style="background:url(assets/img/bn-1.jpg)no-repeat;" data-overlay="5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12"></div>
+        </div>
+    </div>
+</div>
+<section class="gray-bg pt-4">
+    <div class="container-fluid">
+        <div class="row m-0">
+
+            <div class="col-xl-3 col-lg-4 col-md-12 col-sm-12">
+                <div class="dashboard-navbar overlio-top">
+
+                    <div class="d-user-avater">
+                        <img [src]="'data:image/jpeg;base64,' + utilisateur.photo" alt="{{utilisateur.photo}}"
+                            class="img-fluid rounded"
+                            style=" border-radius: 50%; border: 2px solid #fff; box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);">
+                        <h4>{{utilisateur.nom +' '+utilisateur.prenom}} ({{nomRoles}})
+                        </h4>
+                        <span>{{utilisateur.adresse}}</span>
+                    </div>
+
+                    <div class="d-navigation">
+                        <ul id="metismenu">
+                            <li class="active"><a routerLink="/profils"><i class="ti-dashboard"></i>Mon Services </a>
+                            </li>
+                            <li><a routerLink="/listdemande"><i class="ti-user"></i>Demande Sur mon Service</a></li>
+                            <li><a routerLink="/chat"><i class="ti-email"></i>Messages</a></li>
+
+                            <li><a href="#"><i class="ti-power-off"></i>Log Out</a></li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Item Wrap Start -->
+            <div class="col-xl-9 col-lg-8 col-md-12 col-sm-12 ">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <!-- Breadcrumbs -->
+                        <div class="bredcrumb_wrap">
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xl-12 col-lg-12 mb-3">
+                        <div class="form-group">
+                            <div class="label_flex">
+                                <label class="col-9">Mon Info </label>
+                                <div class="col-3" align="end">
+                                    <button data-toggle="modal" data-target="#login" class="btn btn-success"><i
+                                            class="fa fa-plus"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row ">
+                    <div class="col-7 card p-3 shadow" style="margin-left: 5px; margin-right: 5px;">
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label> Nom </label>
+                                    <input type="text" value="{{utilisateur.nom}}" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-6">
+
+                                <div class="form-group">
+                                    <label> Prenom </label>
+                                    <input type="text" value="{{utilisateur.prenom}}" class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+
+                                <div class="form-group">
+                                    <label> Adresse </label>
+                                    <input type="text" value="{{utilisateur.adresse}}" class="form-control">
+                                </div>
+
+                            </div>
+
+                            <div class="col-6">
+
+                                <div class="form-group">
+                                    <label> Email </label>
+                                    <input type="text" value="{{utilisateur.email}}" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-6">
+
+                                <div class="form-group">
+                                    <label> Tel </label>
+                                    <input type="text" value="{{utilisateur.tel}}" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-12">
+
+
+                                <button type="submit" class="btn btn-primary"><i class="fa fa-edit"></i> </button>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-3 card p-3 shadow" style="margin-left: 5px; margin-right: 5px;">
+                        <p *ngFor="let c of listComp">
+                            I am {{c.description}} <br>
+                            j'ai {{c.nombeExperience}} ans Experience
+                        </p>
+
+
+                        <button class="btn btn-primary"><i class="fa fa-edit"></i> </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+</section>
+<div class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="registermodal" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered login-pop-form" role="document">
+        <div class="modal-content" id="registermodal">
+            <div class="modal-header">
+                <h4>Ajouter Comptance</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i
+                            class="ti-close"></i></span></button>
+            </div>
+            <div class="modal-body">
+                <div class="login-form">
+                    <form #form="ngForm" (ngSubmit)="saveCompForPrest(form)">
+                        <div class="col-6">
+                            <h1>Ajouter une image pour le produit</h1>
+                            <input type="file" multiple class="form-control" #selectFile
+                                (change)="onFileSelected($event)" accept=".jpg,.jpeg,.png,.gif" [required]>
+                            <div *ngIf="selectFile.oninvalid && (selectFile.dir )" class="alert alert-danger">
+                                <div *ngIf="selectFile?.['required']">
+                                    Sélectionnez au moins un fichier.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <label for="description">Description</label>
+                            <textarea id="description" cols="5" [(ngModel)]="competance.description" name="description"
+                                class="form-control" required minlength="10"></textarea>
+                            <div *ngIf="form.controls['description'].invalid && (form.controls['description'].dirty || form.controls['description'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="form.controls['description'].errors?.['required']">La description est
+                                    obligatoire.</div>
+                                <div *ngIf="form.controls['description'].errors?.['minlength']">La description doit
+                                    avoir au moins 10 caractères.</div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <label for="nombeExperience">Number Exp</label>
+                            <input id="nombeExperience" type="number" [(ngModel)]="competance.nombeExperience"
+                                name="nombeExperience" class="form-control" required min="1">
+                            <div *ngIf="form.controls['nombeExperience'].invalid && (form.controls['nombeExperience'].dirty || form.controls['nombeExperience'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="form.controls['nombeExperience'].errors?.['required']">Le nombre
+                                    d'expérience est obligatoire.</div>
+                                <div *ngIf="form.controls['nombeExperience'].errors?.['min']">Le nombre d'expérience
+                                    doit être supérieur à 0.</div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <label for="categoriesServices">Categorie</label>
+                            <select id="categoriesServices" class="form-control"
+                                [(ngModel)]="competance.categoriesServices.id" name="categoriesServices" required>
+                                <option *ngFor="let cat of listCat" [ngValue]="cat.id">{{cat.nomCat}}</option>
+                            </select>
+                            <div *ngIf="form.controls['categoriesServices'].invalid && (form.controls['categoriesServices'].dirty || form.controls['categoriesServices'].touched)"
+                                class="alert alert-danger">
+                                La catégorie est obligatoire.
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <input type="hidden" [(ngModel)]="utilisateur.id" name="films" value="{{utilisateur.id}}"
+                                class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn dark-2 btn-md full-width pop-login">Ajouter </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
